@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title id="page-title">Contact Us | User Inactive | Ander Baher™</title>
+  <meta
+    id="page-description"
+    name="description"
+    content="Support page for users whose Ander Baher™ account is currently inactive."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="./contact-us.css" />
+</head>
+<body>
+  <main class="page">
+    <section class="card">
+      <div class="brand">
+        <span class="brand-wordmark">Ander <span class="brand-baher">Baher</span><sup>TM</sup></span>
+      </div>
+      <div class="art">
+        <img
+          src="./assets/contact-us-image.png"
+          alt="Illustration of people near a mailbox and support letters"
+        />
+      </div>
+      <h1 id="issue-title">User Inactive</h1>
+      <p id="issue-message" class="error-text">
+        Access is currently unavailable because this user account has been marked as inactive.
+        If you believe this status is incorrect, please contact our support team for assistance.
+      </p>
+      <a class="contact-block contact-link-block" href="https://anderbaher.in/contact-us/">
+        <p class="contact-title">Contact Us</p>
+        <p id="contact-copy" class="contact-copy">
+          For help with user account status, please visit our contact page.
+        </p>
+        <span class="email-link">
+          anderbaher.in/contact-us
+        </span>
+      </a>
+    </section>
+  </main>
+  <script>
+    (function () {
+      var reason = new URLSearchParams(window.location.search).get('reason') || 'inactive';
+
+      var contentByReason = {
+        inactive: {
+          title: 'Contact Us | User Inactive | Ander Baher™',
+          description: 'Support page for users whose Ander Baher™ account is currently inactive.',
+          heading: 'User Inactive',
+          message:
+            'Access is currently unavailable because this user account has been marked as inactive. If you believe this status is incorrect, please contact our support team for assistance.',
+          contactCopy: 'For help with user account status, please visit our contact page.'
+        },
+        'not-found': {
+          title: 'Contact Us | User Not Found | Ander Baher™',
+          description: 'Support page for users whose Ander Baher™ account could not be found.',
+          heading: 'User Not Found',
+          message:
+            'Access is currently unavailable because we could not find a user account matching the details provided. If you believe this is incorrect, please contact our support team for assistance.',
+          contactCopy: 'For help with missing user account records, please visit our contact page.'
+        }
+      };
+
+      var selected = contentByReason[reason] || contentByReason.inactive;
+
+      document.title = selected.title;
+      document.getElementById('page-title').textContent = selected.title;
+      document.getElementById('page-description').setAttribute('content', selected.description);
+      document.getElementById('issue-title').textContent = selected.heading;
+      document.getElementById('issue-message').textContent = selected.message;
+      document.getElementById('contact-copy').textContent = selected.contactCopy;
+    })();
+  </script>
+</body>
+</html>
