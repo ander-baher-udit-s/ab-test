@@ -7,7 +7,8 @@
       "namespace": "android_app",
       "package_name": "com.ab.attendance.app",
       "sha256_cert_fingerprints": [
-        "56:FE:F1:5C:F9:51:E0:62:91:B0:63:D0:71:96:26:F6:95:F4:85:E2:E1:DB:33:BB:22:6B:7A:49:98:72:E1:D4"
+        "56:FE:F1:5C:F9:51:E0:62:91:B0:63:D0:71:96:26:F6:95:F4:85:E2:E1:DB:33:BB:22:6B:7A:49:98:72:E1:D4",
+        "E4:17:DC:53:27:E8:07:3A:D9:44:E0:F2:94:DA:D1:C9:DB:03:65:30:B9:DA:6B:C9:A7:6D:17:00:56:15:CA:A2"
       ]
     }
   }
