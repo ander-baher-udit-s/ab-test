@@ -1,5 +1,9 @@
 const serviceWorkerUrl = new URL(self.location.href);
 const firebaseWebApiKey = serviceWorkerUrl.searchParams.get('apiKey') || '';
+const attendanceWebBasePath = serviceWorkerUrl.pathname.replace(
+  /\/firebase-messaging-sw\.js$/,
+  '',
+);
 
 self.addEventListener('install', () => {
   self.skipWaiting();
@@ -23,7 +27,6 @@ firebase.initializeApp({
 });
 
 const messaging = firebase.messaging();
-const attendanceWebBasePath = '/client/app';
 
 function isSupportedNotificationRoute(route) {
   const cleanRoute = String(route || '').trim();
