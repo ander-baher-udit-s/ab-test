@@ -83,6 +83,7 @@ self.addEventListener('notificationclick', (event) => {
     event.notification && event.notification.data ? event.notification.data : {};
   const clickUrl = resolveAttendanceAppUrl(data.clickUrl || data.route || '');
   const appBaseUrl = `${self.location.origin}${attendanceWebBasePath}`;
+  const route = String(data.route || '').trim();
 
   event.waitUntil(
     clients.matchAll({ type: 'window', includeUncontrolled: true }).then(
@@ -90,6 +91,13 @@ self.addEventListener('notificationclick', (event) => {
         for (const client of windowClients) {
           if (!client || !client.url || !client.url.startsWith(appBaseUrl)) {
             continue;
+          }
+
+          if ('postMessage' in client && route) {
+            client.postMessage({
+              type: 'ab-push-notification-route',
+              route,
+            });
           }
 
           if ('navigate' in client) {

@@ -3,6 +3,7 @@
   const bridgeAppName = '__ab_push_bridge__';
   let firebaseModulesPromise = null;
   let workerRegistrationPromise = null;
+  let pushNotificationRouteListenerStarted = false;
 
   function getBaseUri() {
     return new URL(document.baseURI);
@@ -131,6 +132,34 @@
 
     return workerRegistrationPromise;
   }
+
+  window.abStartPushNotificationRouteListener = function () {
+    if (pushNotificationRouteListenerStarted) {
+      return;
+    }
+
+    if (!('serviceWorker' in navigator)) {
+      return;
+    }
+
+    navigator.serviceWorker.addEventListener('message', function (event) {
+      const data = event && event.data ? event.data : {};
+      const type = String(data.type || '').trim();
+      const route = String(data.route || '').trim();
+
+      if (type !== 'ab-push-notification-route' || !route) {
+        return;
+      }
+
+      window.dispatchEvent(
+        new CustomEvent('ab-push-notification-route', {
+          detail: route,
+        }),
+      );
+    });
+
+    pushNotificationRouteListenerStarted = true;
+  };
 
   window.abEnsurePushMessagingServiceWorkerRegistration = async function (
     apiKey,
