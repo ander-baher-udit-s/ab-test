@@ -40,8 +40,9 @@ function isSupportedNotificationRoute(route) {
 
 function resolveAttendanceAppUrl(route) {
   const cleanRoute = String(route || '').trim();
+  const appBaseUrl = `${self.location.origin}${attendanceWebBasePath}`;
   if (!cleanRoute) {
-    return `${self.location.origin}${attendanceWebBasePath}/`;
+    return `${appBaseUrl}/#/`;
   }
 
   if (/^https?:\/\//i.test(cleanRoute)) {
@@ -49,14 +50,11 @@ function resolveAttendanceAppUrl(route) {
   }
 
   if (!isSupportedNotificationRoute(cleanRoute)) {
-    return `${self.location.origin}${attendanceWebBasePath}/`;
+    return `${appBaseUrl}/#/`;
   }
 
-  if (cleanRoute.startsWith('/')) {
-    return `${self.location.origin}${attendanceWebBasePath}${cleanRoute}`;
-  }
-
-  return `${self.location.origin}${attendanceWebBasePath}/${cleanRoute}`;
+  const normalizedRoute = cleanRoute.startsWith('/') ? cleanRoute : `/${cleanRoute}`;
+  return `${appBaseUrl}/#${normalizedRoute}`;
 }
 
 messaging.onBackgroundMessage((payload) => {
