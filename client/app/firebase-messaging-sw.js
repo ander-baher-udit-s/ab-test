@@ -40,12 +40,16 @@ function isSupportedNotificationRoute(route) {
 
 function resolveAttendanceAppUrl(route) {
   const cleanRoute = String(route || '').trim();
-  if (!cleanRoute || !isSupportedNotificationRoute(cleanRoute)) {
+  if (!cleanRoute) {
     return `${self.location.origin}${attendanceWebBasePath}/`;
   }
 
   if (/^https?:\/\//i.test(cleanRoute)) {
     return cleanRoute;
+  }
+
+  if (!isSupportedNotificationRoute(cleanRoute)) {
+    return `${self.location.origin}${attendanceWebBasePath}/`;
   }
 
   if (cleanRoute.startsWith('/')) {
