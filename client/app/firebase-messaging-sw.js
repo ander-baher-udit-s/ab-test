@@ -82,12 +82,31 @@ self.addEventListener('notificationclick', (event) => {
   const data =
     event.notification && event.notification.data ? event.notification.data : {};
   const clickUrl = resolveAttendanceAppUrl(data.clickUrl || data.route || '');
+  const appBaseUrl = `${self.location.origin}${attendanceWebBasePath}`;
 
   event.waitUntil(
     clients.matchAll({ type: 'window', includeUncontrolled: true }).then(
       (windowClients) => {
         for (const client of windowClients) {
-          if ('focus' in client && client.url === clickUrl) {
+          if (!client || !client.url || !client.url.startsWith(appBaseUrl)) {
+            continue;
+          }
+
+          if ('navigate' in client) {
+            return client.navigate(clickUrl).then(function (navigatedClient) {
+              if (navigatedClient && 'focus' in navigatedClient) {
+                return navigatedClient.focus();
+              }
+
+              if ('focus' in client) {
+                return client.focus();
+              }
+
+              return undefined;
+            });
+          }
+
+          if ('focus' in client) {
             return client.focus();
           }
         }

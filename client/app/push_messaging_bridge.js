@@ -190,4 +190,49 @@
       serviceWorkerRegistration: registration,
     });
   };
+
+  window.abShowPushMessagingNotification = async function (
+    apiKey,
+    authDomain,
+    projectId,
+    storageBucket,
+    messagingSenderId,
+    appId,
+    measurementId,
+    title,
+    body,
+    route,
+  ) {
+    const firebaseConfig = buildFirebaseConfig(
+      apiKey,
+      authDomain,
+      projectId,
+      storageBucket,
+      messagingSenderId,
+      appId,
+      measurementId,
+    );
+
+    const registration = await ensurePushServiceWorkerRegistration(
+      firebaseConfig,
+    );
+
+    const normalizedTitle = String(title || '').trim();
+    const normalizedBody = String(body || '').trim();
+    const normalizedRoute = String(route || '').trim();
+
+    if (!normalizedTitle && !normalizedBody) {
+      return;
+    }
+
+    await registration.showNotification(
+      normalizedTitle || 'Ander Baher Attendance',
+      {
+        body: normalizedBody,
+        data: {
+          route: normalizedRoute,
+        },
+      },
+    );
+  };
 })();
