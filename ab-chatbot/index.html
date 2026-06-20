@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
+
+  <title>Ander Baher Support Bot Test Page</title>
+
+  <style>
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: transparent;
+    }
+
+    body.ab-shell-blank {
+      background: transparent;
+    }
+
+    .ab-demo-page {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      box-sizing: border-box;
+      background: #21453d;
+      color: #101828;
+    }
+
+    .ab-demo-card {
+      width: min(100%, 400px);
+      min-height: 760px;
+      background: linear-gradient(180deg, #ffffff, #f7faf8);
+      border-radius: 26px;
+      box-shadow: 0 30px 80px rgba(16, 24, 40, 0.22);
+      padding: 26px 22px;
+      box-sizing: border-box;
+    }
+
+    .ab-demo-card h1 {
+      margin: 0 0 20px;
+      font-size: 24px;
+      line-height: 1.2;
+    }
+
+    .ab-demo-placeholder {
+      border-radius: 16px;
+      background: #eaf7ee;
+      padding: 18px;
+      color: #14532d;
+      font-weight: 700;
+    }
+  </style>
+</head>
+
+<body>
+  <main id="demoPage" class="ab-demo-page">
+    <section class="ab-demo-card">
+      <h1>Ander Baher Attendance App - Test Host</h1>
+      <div class="ab-demo-placeholder">
+        Host page content. The support bot loads as a floating widget.
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+
+      const mode = params.get("mode") || "floating";
+
+      /*
+        mode=floating  → shows demo/host page + floating button.
+        mode=fullscreen → hides demo page and opens bot full screen.
+        Useful for Flutter WebView / PWA embed.
+      */
+      if (mode === "fullscreen") {
+        document.body.classList.add("ab-shell-blank");
+        const demoPage = document.getElementById("demoPage");
+        if (demoPage) demoPage.style.display = "none";
+      }
+
+      const loader = document.createElement("script");
+
+      loader.src = params.get("loaderUrl") || "./ab-chatbot-loader.js";
+
+      function buildGasExecUrl(id) {
+        id = String(id || "").trim();
+        if (!id) return "";
+        if (/^https?:\/\//i.test(id)) return id;
+        return "https://script.google.com/macros/s/" + encodeURIComponent(id) + "/exec";
+      }
+
+      const gasUrl =
+        params.get("gasUrl") ||
+        buildGasExecUrl(params.get("gasUrlId") || params.get("scriptId") || params.get("endpointId") || "");
+
+	  loader.setAttribute("data-gas-url", gasUrl);
+	  
+      loader.setAttribute("data-org-id", params.get("orgId") || "");
+      loader.setAttribute("data-user-id", params.get("userId") || "");
+      loader.setAttribute("data-user-name", params.get("userName") || "");
+      loader.setAttribute("data-user-email", params.get("userEmail") || "");
+      loader.setAttribute("data-contexts", params.get("contexts") || "");
+      loader.setAttribute("data-title", params.get("title") || "Support Assistant");
+      loader.setAttribute("data-launcher-text", params.get("launcherText") || "?");
+      loader.setAttribute("data-side", params.get("side") || "right");
+      loader.setAttribute("data-mode", mode);
+
+      document.body.appendChild(loader);
+    })();
+  </script>
+</body>
+</html>
