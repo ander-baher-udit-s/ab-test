@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="/ab-test/greendesk/">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="AnderBaher GreenDesk.">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="AnderBaher GreenDesk">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/logo-192.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="icons/logo-512.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  
+
+  <meta name="google-signin-client_id" content="913362426241-87v3oci97239jj0ge3tofprcf3qk3stu.apps.googleusercontent.com">
+
+  <title>AnderBaher GreenDesk</title>
+  <link rel="manifest" href="manifest.json">
+
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+  <!-- Revert serviceWorkerVersion to null and use loadEntrypoint -->
+  <script>
+    const serviceWorkerVersion = "3906393915";
+  </script>
+  <script src="flutter.js" defer></script>
+</head>
+<body>
+  <script>
+    window.addEventListener('load', function(ev) {
+      _flutter.loader.loadEntrypoint({
+        serviceWorker: {
+          serviceWorkerVersion: serviceWorkerVersion,
+        },
+        onEntrypointLoaded: function(engineInitializer) {
+          engineInitializer.initializeEngine().then(function(appRunner) {
+            appRunner.runApp();
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
