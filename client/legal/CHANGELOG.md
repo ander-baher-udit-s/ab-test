@@ -1,4 +1,4 @@
-﻿# Legal Changelog (AB Attendance)
+# Legal Changelog (AB Attendance)
 
 This changelog tracks published legal document releases for AB Attendance.
 
@@ -6,6 +6,29 @@ Versioning policy:
 - PATCH (x.y.Z): typo/format-only updates with no legal meaning change.
 - MINOR (x.Y.z): clarifications/additions with non-material legal impact.
 - MAJOR (X.y.z): material legal change.
+
+---
+
+## v1.3.0
+- Effective Date: 2026-07-13
+- Published Date: 2026-07-13
+- Change Type: MINOR
+- Documents Changed:
+  - terms-and-conditions.html
+  - privacy-policy.html
+- Summary:
+  - Updated Terms to define passkeys, include secure sign-in within the service scope, and cover optional passkey login, device credential security, recovery, and authentication misuse restrictions.
+  - Updated Terms retention, privacy-consent, disclaimer, and liability language to reflect passkey-enabled authentication and related account-security records.
+  - Updated Privacy Policy to explain passkey credential and sign-in data, clarify that local biometric unlock secrets are not received by the company, and disclose credential-provider storage or sync behavior.
+  - Updated Privacy Policy storage, sharing, deletion, and retention language to cover passkey verification infrastructure, passkey-related records, and security or audit workflows.
+- Approval:
+  - Approved by: User-provided finalized draft
+  - Approval Date: 2026-07-13
+- Git References:
+  - Commit: PENDING
+  - Tag: legal-v1.3.0
+- Archive:
+  - docs/privacy/archive/v1.3.0/
 
 ---
 

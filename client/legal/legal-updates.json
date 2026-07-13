@@ -1,0 +1,28 @@
+{
+  "v1.3.0": {
+    "effectiveDate": "2026-07-13",
+    "documentsChanged": [
+      "terms",
+      "privacy"
+    ],
+    "summary": [
+      "Added optional passkey sign-in language to the Terms, including credential security, recovery, and restrictions against bypassing authentication controls.",
+      "Updated the legal definitions, service scope, retention, disclaimer, and liability language to reflect passkey-based authentication and related account-security records.",
+      "Expanded the Privacy Policy to explain passkey credential and sign-in data, what authentication details we do not receive, and how credential providers may handle storage or sync.",
+      "Clarified how passkey-related records may be used, stored, shared, deleted, or retained alongside existing attendance, OTP, and fallback verification workflows."
+    ]
+  },
+  "v1.2.0": {
+    "effectiveDate": "2026-05-06",
+    "documentsChanged": [
+      "terms",
+      "privacy"
+    ],
+    "summary": [
+      "Updated Terms and Conditions to align with the finalized legal draft and standardized the Ander Baher trademarked product naming.",
+      "Clarified the multi-organisation usage model, governing law wording, and account deletion request path in the Terms.",
+      "Expanded the Privacy Policy to cover regularisation evidence, archived business records, and Google-hosted workflow and storage services.",
+      "Added disclosure for fallback facial verification through Face++ and aligned operational privacy language with the current attendance and OTP flows."
+    ]
+  }
+}

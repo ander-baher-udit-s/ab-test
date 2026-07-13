@@ -1,13 +1,15 @@
-﻿:root {
+:root {
   --primary: #70ad47;
   --primary-soft: #e8f3df;
   --accent: #5a8a39;
+  --accent-deep: #476e2f;
   --text: #373534;
   --text-soft: #686663;
   --surface: #ffffff;
   --surface-alt: #f7faf5;
   --border: #dbe6d3;
   --shadow: 0 16px 42px rgba(40, 56, 32, 0.1);
+  --overlay: rgba(40, 56, 32, 0.44);
 }
 
 *,
@@ -24,6 +26,10 @@ body {
     radial-gradient(circle at 8% -6%, rgba(112, 173, 71, 0.2), transparent 45%),
     linear-gradient(180deg, #f4f7f0 0%, #f9fbf8 48%, #f5f8f3 100%);
   line-height: 1.72;
+}
+
+body.legal-modal-open {
+  overflow: hidden;
 }
 
 .site-shell {
@@ -176,6 +182,146 @@ a {
   color: var(--accent);
 }
 
+.legal-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.14), transparent 34%),
+    var(--overlay);
+  backdrop-filter: blur(10px);
+}
+
+.legal-modal {
+  position: relative;
+  width: min(680px, 100%);
+  max-height: min(86vh, 920px);
+  overflow: auto;
+  border: 1px solid rgba(219, 230, 211, 0.9);
+  outline: none;
+  border-radius: 26px;
+  padding: 28px 28px 24px;
+  background:
+    radial-gradient(circle at top right, rgba(112, 173, 71, 0.18), transparent 34%),
+    linear-gradient(180deg, rgba(252, 254, 251, 0.98), rgba(255, 255, 255, 0.98));
+  box-shadow:
+    0 28px 80px rgba(20, 31, 15, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.68);
+}
+
+.legal-modal-badge,
+.legal-modal h2,
+.legal-modal h3,
+.legal-modal-meta-label,
+.legal-modal-meta-value,
+.legal-modal-action {
+  font-family: "Manrope", sans-serif;
+}
+
+.legal-modal-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 12px;
+  border: 1px solid rgba(112, 173, 71, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--accent-deep);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.legal-modal h2 {
+  margin: 14px 0 10px;
+  font-size: clamp(1.8rem, 3vw, 2.25rem);
+  line-height: 1.1;
+}
+
+.legal-modal-lead {
+  margin: 0;
+  color: var(--text-soft);
+  font-size: 1rem;
+}
+
+.legal-modal-meta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 22px 0 20px;
+}
+
+.legal-modal-meta div {
+  padding: 14px 15px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.84);
+}
+
+.legal-modal-meta-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+.legal-modal-meta-value {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.98rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text);
+}
+
+.legal-modal-summary {
+  padding: 18px 18px 12px;
+  border: 1px solid rgba(219, 230, 211, 0.9);
+  border-radius: 18px;
+  background: rgba(247, 250, 245, 0.88);
+}
+
+.legal-modal-summary h3 {
+  margin: 0 0 10px;
+  font-size: 1rem;
+}
+
+.legal-modal-summary ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.legal-modal-summary li + li {
+  margin-top: 0.6rem;
+}
+
+.legal-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.legal-modal-action {
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 14px 28px rgba(71, 110, 47, 0.24);
+}
+
+.legal-modal-action:hover {
+  transform: translateY(-1px);
+}
+
 @media (max-width: 720px) {
   .site-shell {
     width: min(980px, 94vw);
@@ -200,6 +346,27 @@ a {
     flex: 1 1 100%;
     min-width: 0;
   }
+
+  .legal-modal-backdrop {
+    padding: 14px;
+  }
+
+  .legal-modal {
+    padding: 22px 18px 18px;
+    border-radius: 22px;
+  }
+
+  .legal-modal-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .legal-modal-actions {
+    justify-content: stretch;
+  }
+
+  .legal-modal-action {
+    width: 100%;
+  }
 }
 
 @media print {
@@ -212,7 +379,8 @@ a {
     margin: 0;
   }
 
-  .top-bar {
+  .top-bar,
+  .legal-modal-backdrop {
     display: none;
   }
 
