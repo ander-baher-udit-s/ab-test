@@ -31,57 +31,6 @@
 
   <title>Ander Baher™</title>
   <link rel="manifest" href="manifest.json">
-  <script>
-    window.abRecaptchaInit = function (siteKey) {
-      if (!siteKey) {
-        return Promise.reject(new Error('Missing reCAPTCHA site key.'));
-      }
-
-      if (window.__abRecaptchaInitPromise && window.__abRecaptchaSiteKey === siteKey) {
-        return window.__abRecaptchaInitPromise;
-      }
-
-      window.__abRecaptchaSiteKey = siteKey;
-      window.__abRecaptchaInitPromise = new Promise(function (resolve, reject) {
-        if (window.grecaptcha && window.grecaptcha.enterprise) {
-          window.grecaptcha.enterprise.ready(function () {
-            resolve();
-          });
-          return;
-        }
-
-        var script = document.createElement('script');
-        script.src = 'https://www.google.com/recaptcha/enterprise.js?render=' + encodeURIComponent(siteKey);
-        script.async = true;
-        script.defer = true;
-        script.onload = function () {
-          if (!window.grecaptcha || !window.grecaptcha.enterprise) {
-            reject(new Error('reCAPTCHA library did not initialize.'));
-            return;
-          }
-          window.grecaptcha.enterprise.ready(function () {
-            resolve();
-          });
-        };
-        script.onerror = function () {
-          reject(new Error('Failed to load reCAPTCHA library.'));
-        };
-        document.head.appendChild(script);
-      });
-
-      return window.__abRecaptchaInitPromise;
-    };
-
-    window.abRecaptchaExecute = async function (siteKey, action) {
-      await window.abRecaptchaInit(siteKey);
-      return window.grecaptcha.enterprise.execute(siteKey, { action: action });
-    };
-  </script>
-  <style>
-    .grecaptcha-badge {
-      visibility: hidden;
-    }
-  </style>
   <script
     src="https://github.com/corbado/flutter-passkeys/releases/download/2.4.0/bundle.js"
     type="application/javascript"
